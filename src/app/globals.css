@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #fffef2;
+  --color-paper-line: #c7d7f0;
+  --color-paper-margin: #f2a6a6;
+  --color-ink: #172e54;
+  --color-ink-light: #3b6ea5;
+  --color-ink-faint: #7fa3cc;
+  --color-ink-fainter: #9bb7de;
+  --color-wood: #d9b48a;
+  --color-amber-soft: #fef3c7;
+  --radius-card: 16px;
+  --shadow-paper: 0 1px 2px rgba(23, 46, 84, 0.06), 0 8px 28px rgba(23, 46, 84, 0.08);
+  --shadow-paper-hover: 0 2px 8px rgba(23, 46, 84, 0.08), 0 12px 32px rgba(23, 46, 84, 0.11);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #9bb7de transparent;
+}
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: #9bb7de; border-radius: 999px; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  background: #eef3fb;
+  color: var(--color-ink);
+  font-family: var(--font-body), system-ui, -apple-system, "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: #c7d7f0; }
+
+:focus-visible {
+  outline: 2px solid #3b6ea5;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+/* ——— Papel ——— */
+.paper-card {
+  background: var(--color-paper);
+  border: 1px solid #cbdaf0;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-paper);
+  transition: box-shadow 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+.paper-card:hover { box-shadow: var(--shadow-paper-hover); }
+
+.ink-title { font-family: var(--font-display), cursive; letter-spacing: -0.015em; }
+.label-caps {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+}
+
+/* inputs acessíveis — 44px min touch target */
+.field-input {
+  width: 100%;
+  border: 1.5px solid #b8cce8;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--color-ink);
+  transition: border-color 150ms, box-shadow 150ms, background 150ms;
+}
+.field-input::placeholder { color: #9bb7de; }
+.field-input:hover { border-color: #9bb7de; }
+.field-input:focus {
+  outline: none;
+  border-color: #3b6ea5;
+  box-shadow: 0 0 0 3px rgba(59, 110, 165, 0.18);
+  background: #fff;
+}
+.field-input:invalid:not(:placeholder-shown) { border-color: #e85d4d; }
+
+/* botões — estados visíveis, :active, :disabled */
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 42px; padding: 0 18px;
+  border-radius: 12px;
+  background: var(--color-ink);
+  color: #fffef2;
+  font-size: 14px; font-weight: 600;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 2px rgba(23,46,84,0.12);
+  transition: background 150ms, transform 120ms, box-shadow 150ms, opacity 150ms;
+}
+.btn-primary:hover { background: #1f426e; box-shadow: 0 4px 12px rgba(23,46,84,0.18); }
+.btn-primary:active { transform: translateY(1px) scale(0.99); }
+.btn-primary:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 42px; padding: 0 16px;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--color-ink);
+  font-size: 14px; font-weight: 600;
+  border: 1px solid #cbdaf0;
+  transition: background 150ms, border-color 150ms, box-shadow 150ms;
+}
+.btn-ghost:hover { background: #f0f6ff; border-color: #b8cce8; }
+.btn-ghost:active { background: #e6eefc; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 12px; font-weight: 600; line-height: 1;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.badge-quitado { background: #ecfdf5; color: #065f46; border-color: #a7f3d0; }
+.badge-aberto  { background: #eef4ff; color: #1e40af; border-color: #c7d7f0; }
+.badge-atraso  { background: #fffbeb; color: #92400e; border-color: #fde68a; }
+.badge-limite  { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+
+/* Barra de uso do limite — acessível via aria */
+.meter-track { height: 6px; border-radius: 999px; background: #e6eefc; overflow: hidden; }
+.meter-fill  { height: 100%; border-radius: inherit; transition: width 420ms ease; }
+
+/* estados vazios */
+.empty-illustration { opacity: 0.9; }
